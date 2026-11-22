@@ -1,4 +1,14 @@
 -- Zepto Database Verification
+--
+-- Expected Results:
+-- skus              = 21
+-- calendar_weeks    = 92
+-- weekly_sales      = 1760
+-- committed_orders  = 20
+--
+-- Season-wise Verification:
+-- Festive           = 8
+-- Regular           = 84
 
 SELECT 'SKUs' AS table_name,
        COUNT(*) AS actual,
@@ -20,14 +30,11 @@ SELECT 'Committed Orders',
        20
 FROM committed_orders;
 
--- Season-wise weekly sales verification
+-- Season-wise calendar verification
 
 SELECT
-    c.season,
-    COUNT(*) AS total_sku_weeks,
-    COUNT(DISTINCT w.week_no) AS total_weeks
-FROM weekly_sales w
-JOIN calendar_weeks c
-    ON w.week_no = c.week_no
-GROUP BY c.season
-ORDER BY c.season;
+    season,
+    COUNT(*) AS total_weeks
+FROM calendar_weeks
+GROUP BY season
+ORDER BY season;
